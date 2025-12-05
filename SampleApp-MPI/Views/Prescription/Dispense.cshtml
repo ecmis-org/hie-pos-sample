@@ -1,0 +1,57 @@
+﻿@model SampleApp_MPI.Models.ViewModels.PrescriptionDispenseViewModel
+
+<h1>@($"{Model.Patient.LastName} {Model.Patient.FirstName} {Model.Patient.MiddleName}")</h1>
+<table>
+    <tr>
+        <th>PIN</th>
+        <td>@Model.Patient.PIN</td>
+        <th>Gender</th>
+        <td>@Model.Patient.Sex</td>
+        <th>DOB</th>
+        <td>@Model.Patient.DOB.ToString("dd MMM yyyy")</td>
+        <th>Chiefdom</th>
+        <td>@(Model.Patient.Chiefdom ?? "-")</td>
+        <td>Inkhundla</td>
+        <td>@(Model.Patient.Inkhundla ?? "-")</td>
+    </tr>
+</table>
+
+<hr />
+
+@using(Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th width="40%">Product</th>
+            <th width="15%">Date Prepared</th>
+            <th width="15%">Date Dispensed</th>
+            <th width="15%">Quantity Dispensed</th>
+            <th width="15%">Days Supply</th>
+        </tr>
+
+        @for(int x = 0; x < Model.Medications.Count; x++)
+        {
+            <tr>
+                <td>
+                    @Model.Medications[x].Product.Name
+                    @Html.Hidden($"Model.MedicationDispenseList[{x}].MedicationId", Model.Medications[x].Id)
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.MedicationDispenseList[x].DatePrepared, new { htmlAttributes = new { @class = "form-control" }})
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.MedicationDispenseList[x].DateDispensed, new { htmlAttributes = new { @class = "form-control" }})
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.MedicationDispenseList[x].QuantityDispensed, new { htmlAttributes = new { @class = "form-control" }})
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.MedicationDispenseList[x].DaysSupply, new { htmlAttributes = new { @class = "form-control" }})
+                </td>
+            </tr>            
+        }
+    </table>
+
+    <button class="btn btn-primary btn-lg">Submit</button>
+    <button class="btn btn-light btn-lg">Back</button>
+}

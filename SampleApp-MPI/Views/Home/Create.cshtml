@@ -1,0 +1,146 @@
+﻿@model SampleApp_MPI.Models.Patient
+
+@using SampleApp_MPI.Models
+@using SampleApp_MPI.Utilities
+
+<div class="container-fluid min-vh-100 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-4">
+                    <h3 class="text-center mb-0">
+                        <i class="bi bi-person-plus-fill me-2"></i>
+                        Create a New Patient
+                    </h3>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-4">
+                            <h5 class="text-primary border-bottom pb-2 mb-3">
+                                <i class="bi bi-card-text me-2"></i>Identification
+                            </h5>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="PIN" class="form-label fw-semibold">
+                                    PIN <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="PIN" class="form-control form-control-lg" placeholder="Enter PIN" />
+                                <span asp-validation-for="PIN" class="text-danger small"></span>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="AlternateId" class="form-label fw-semibold">Alternate ID</label>
+                                <input asp-for="AlternateId" class="form-control" placeholder="Enter Alternate ID" />
+                                <span asp-validation-for="AlternateId" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="text-primary border-bottom pb-2 mb-3">
+                                <i class="bi bi-person-fill me-2"></i>Personal Information
+                            </h5>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="FirstName" class="form-label fw-semibold">
+                                        First Name <span class="text-danger">*</span>
+                                    </label>
+                                    <input asp-for="FirstName" class="form-control" placeholder="First name" />
+                                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="MiddleName" class="form-label fw-semibold">Middle Name</label>
+                                    <input asp-for="MiddleName" class="form-control" placeholder="Middle name" />
+                                    <span asp-validation-for="MiddleName" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="LastName" class="form-label fw-semibold">
+                                    Last Name <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="LastName" class="form-control" placeholder="Last name" />
+                                <span asp-validation-for="LastName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="DOB" class="form-label fw-semibold">
+                                        Date of Birth <span class="text-danger">*</span>
+                                    </label>
+                                    <input asp-for="DOB" class="form-control" type="date" />
+                                    <span asp-validation-for="DOB" class="text-danger small"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Sex" class="form-label fw-semibold">
+                                        Sex <span class="text-danger">*</span>
+                                    </label>
+                                    <select asp-for="Sex" class="form-select">
+                                        <option value="">-- Select Sex --</option>
+                                        @foreach (var item in Enum.GetValues(typeof(Constants.Sex)))
+                                        {
+                                            <option value="@item">@item</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Sex" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="text-primary border-bottom pb-2 mb-3">
+                                <i class="bi bi-geo-alt-fill me-2"></i>Location Information
+                            </h5>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Inkhundla" class="form-label fw-semibold">
+                                        Inkhundla <span class="text-danger">*</span>
+                                    </label>
+                                    <select asp-for="Inkhundla" class="form-select">
+                                        <option value="">-- Select Inkhundla --</option>
+                                        @foreach (var item in Enum.GetValues(typeof(Constants.Tinkhundla)))
+                                        {
+                                            <option value="@item">@item</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Inkhundla" class="text-danger small"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Chiefdom" class="form-label fw-semibold">
+                                        Chiefdom <span class="text-danger">*</span>
+                                    </label>
+                                    <select asp-for="Chiefdom" class="form-select">
+                                        <option value="">-- Select Chiefdom --</option>
+                                        @foreach (var item in Enum.GetValues(typeof(Constants.Chiefdoms)))
+                                        {
+                                            <option value="@item">@item</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Chiefdom" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input asp-for="PatientId" type="hidden" value="@Guid.Empty" />
+                        <input asp-for="AlternateId" type="hidden" value="12345" />
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-check-circle me-2"></i>Save
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">
+                                <i class="bi bi-arrow-left me-2"></i>Home
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

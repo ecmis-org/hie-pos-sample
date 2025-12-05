@@ -1,0 +1,42 @@
+﻿@model SampleApp_MPI.Models.ViewModels.PrescriptionDetailsViewModel
+
+<h1>@($"{Model.Patient.LastName} {Model.Patient.FirstName} {Model.Patient.MiddleName}")</h1>
+<table>
+    <tr>
+        <th>PIN</th>
+        <td>@Model.Patient.PIN</td>
+        <th>Gender</th>
+        <td>@Model.Patient.Sex</td>
+        <th>DOB</th>
+        <td>@Model.Patient.DOB.ToString("dd MMM yyyy")</td>
+        <th>Chiefdom</th>
+        <td>@(Model.Patient.Chiefdom ?? "-")</td>
+        <td>Inkhundla</td>
+        <td>@(Model.Patient.Inkhundla ?? "-")</td>
+    </tr>
+</table>
+
+<hr />
+
+<table class="table">
+    <tr>
+        <th>Product</th>
+        <th class="text-center">Quantity</th>
+        <th>Frequency</th>
+        <th class="text-center">Duration</th>
+    </tr>
+
+    @foreach(var item in Model.Medications)
+    {
+        <tr>
+            <td>@item.Product.Name</td>
+            <td class="text-center">@item.Quantity</td>
+            <td>@item.Frequency</td>
+            <td class="text-center">@item.Duration</td>
+        </tr>        
+    }
+</table>
+
+<div class="form-group">
+    <a href="@Url.Action("Dispense","Prescription", new { patientId = Model.Patient.PatientId })" class="btn btn-primary btn-lg">Dispense</a>
+</div>

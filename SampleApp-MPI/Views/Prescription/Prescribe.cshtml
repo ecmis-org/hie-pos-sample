@@ -1,0 +1,104 @@
+﻿@model SampleApp_MPI.Models.ViewModels.PrescriptionViewModel
+
+<h1>@($"{Model.Patient.LastName} {Model.Patient.FirstName} {Model.Patient.MiddleName}")</h1>
+<table>
+    <tr>
+        <th>PIN</th>
+        <td>@Model.Patient.PIN</td>
+        <th>Gender</th>
+        <td>@Model.Patient.Sex</td>
+        <th>DOB</th>
+        <td>@Model.Patient.DOB.ToString("dd MMM yyyy")</td>
+        <th>Chiefdom</th>
+        <td>@(Model.Patient.Chiefdom ?? "-")</td>
+        <td>Inkhundla</td>
+        <td>@(Model.Patient.Inkhundla ?? "-")</td>
+    </tr>
+</table>
+
+<hr />
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Prescription Information
+                </div>
+
+                <div class="card-body">
+                    @Html.Hidden("Prescription.PatientId",Model.Patient.PatientId)
+
+                    <div class="form-group mb-3">
+                        @Html.Label("Department")
+                        @Html.DropDownListFor(model => model.Encounter.DepartmentId, Model.Departments, "Select", new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group mb-3">
+                        @Html.Label("Service Point")
+                        @Html.DropDownListFor(model => model.Encounter.ServicePointId, Model.ServicePoints, "Select", new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group mb-3">
+                        @Html.Label("Prescriber")
+                        @Html.DropDownListFor(model => model.Prescription.PractitionerId, Model.Prescribers, "Select", new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Prescription Date")
+                        @Html.EditorFor(model => Model.Prescription.PrescriptionDate, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card mt-3">
+                <div class="card-header">
+                    Medications
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                @Html.Label("Product")
+                                @Html.DropDownListFor(model => model.Medication.ProductId, Model.Products, "Select", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                @Html.Label("Quantity")
+                                @Html.EditorFor(model => Model.Medication.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                @Html.Label("Frequency")
+                                @Html.DropDownListFor(model => model.Medication.Frequency, Html.GetEnumSelectList<Frequency>(), "Select", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                @Html.Label("Duration")
+                                @Html.EditorFor(model => Model.Medication.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

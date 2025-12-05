@@ -1,0 +1,90 @@
+﻿@model SampleApp_MPI.Models.Search
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-fluid bg-light min-vh-100 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-primary text-white py-4">
+                    <h1 class="text-center mb-0 display-5">
+                        <i class="bi bi-hospital me-3"></i>
+                        Client Sample Application
+                    </h1>
+                    <p class="text-center mb-0 mt-2 opacity-75">Eswatini Health Information Exchange POS Sample</p>
+                </div>
+                <div class="card-body p-5">
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm hover-card">
+                                <div class="card-body text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="bi bi-person-plus-fill text-primary" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <h5 class="card-title">Register Patient</h5>
+                                    <p class="card-text text-muted">Create a new patient record.</p>
+                                    <a href="@Url.Action("Create", "Home")" class="btn btn-primary btn-sm mt-2">
+                                        <i class="bi bi-plus-circle me-1"></i>New Patient
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm hover-card">
+                                <div class="card-body text-center p-4">
+                                    <div class="mb-3">
+                                        <i class="bi bi-search text-success" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <h5 class="card-title">Search for a Patient</h5>
+                                    <p class="card-text text-muted">Find and access existing patient information</p>
+                                    <a href="@Url.Action("Search", "Home")" class="btn btn-success btn-sm mt-2">
+                                        <i class="bi bi-search me-1"></i>Search Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    }
+
+    .hover-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .display-5 {
+        font-weight: 600;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+    }
+
+    .btn-sm {
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+    }
+</style>

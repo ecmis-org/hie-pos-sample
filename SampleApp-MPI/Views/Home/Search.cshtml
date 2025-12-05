@@ -1,0 +1,159 @@
+﻿@model SampleApp_MPI.Models.ViewModels.ClientSearchViewModel
+
+<div class="container-fluid bg-light min-vh-100 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-10 col-sm-12">
+
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-primary text-white py-3">
+                    <h4 class="text-center mb-0">
+                        Patient Search
+                    </h4>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Search" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-4">
+
+                            <div class="form-group mb-3">
+                                <label class="form-label fw-semibold">
+                                    Search Term <span class="text-danger">*</span>
+                                </label>
+                                <div class="">
+                                    <input asp-for="SearchTerm" class="form-control"
+                                        placeholder="Enter Identifier or Name" />
+                                    <span asp-validation-for="SearchTerm" class="text-danger small"></span>
+                                </div>
+                                <small class="text-muted">
+                                    Search by identifier, first name
+                                </small>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex">
+                                <button type="submit" class="btn btn-primary">
+                                    Search
+                                </button>
+
+                                <div class="text-center">
+                                    <a asp-action="Index" class="btn btn-outline-secondary">
+                                        <i class="bi bi-arrow-left me-2"></i>Home
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-10 col-sm-12">
+
+            @if (Model?.SearchResults != null)
+            {
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-success text-white py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="mb-0">
+                                Search Results
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="card-body p-4 p-md-5">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>PIN</th>
+                                    <th>Surname</th>
+                                    <th>Names</th>
+                                    <th>D.O.B</th>
+                                    <th>Sex</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var patient in Model.SearchResults)
+                                {
+                                    <tr>
+                                        <td>@patient.PIN</td>
+                                        <td>@patient.LastName</td>
+                                        <td>@($"{patient.FirstName} {patient.MiddleName}")</td>
+                                        <td>@patient.DOB.ToString("dd MMM yyyy")</td>
+                                        <td>@patient.Sex</td>
+                                        <td>
+                                            <a asp-action="#" class="btn btn-success btn-sm">Checkin</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center py-5">
+                        <i class="bi bi-inbox text-muted" style="font-size: 4rem;"></i>
+                        <h4 class="mt-3 text-muted">No Results</h4>
+                        <p class="text-muted">Enter a search term to find patient records</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-label {
+        color: #495057;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    }
+
+    .card-header.bg-success {
+        background: linear-gradient(135deg, #198754 0%, #157347 100%) !important;
+    }
+
+    .border-bottom {
+        border-bottom: 2px solid #e9ecef !important;
+    }
+
+    .info-card {
+        transition: all 0.3s ease;
+        border: 1px solid #e9ecef;
+    }
+
+    .info-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+        border-color: #0d6efd;
+    }
+
+    .input-group-text {
+        border-right: none;
+    }
+
+    .input-group .form-control {
+        border-left: none;
+    }
+
+    .input-group .form-control:focus {
+        border-left: none;
+    }
+</style>
