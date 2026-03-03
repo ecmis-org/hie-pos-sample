@@ -112,9 +112,11 @@ public static class PatientTranslator
 
     public static Models.Patient ToEmrType(this Patient fhirPatient)
     {
+        bool hasValidGuidId = Guid.TryParse(fhirPatient.Id, out Guid resourceId);
+
         var entity = new Models.Patient
         {
-            PatientId = Guid.Parse(fhirPatient.Id),
+            PatientId = hasValidGuidId ? resourceId : Guid.Parse(fhirPatient.Link.FirstOrDefault()?.Other.Reference.Split('/')[1]),
 
             FirstName = fhirPatient.Name
                 .FirstOrDefault()!
